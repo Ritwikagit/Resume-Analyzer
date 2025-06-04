@@ -12,9 +12,6 @@ const App = () => {
     const savedCount = localStorage.getItem("analyzedCount");
     if (savedCount) setAnalyzedCount(Number(savedCount));
 
-    // const savedParsedData = localStorage.getItem("parsedData");
-    // if (savedParsedData) setParsedData(JSON.parse(savedParsedData));
-
     const savedFileName = localStorage.getItem("lastUploadedFileName");
     if (savedFileName) setLastFileName(savedFileName);
   }, []);
@@ -33,21 +30,17 @@ const App = () => {
       <UploadForm
         setParsedData={setParsedData}
         setAnalyzedCount={setAnalyzedCount}
-        setLastFileName={setLastFileName}
+        setLastFileName={setLastFileName} // <-- pass this to update filename from UploadForm
       />
 
-      <div className="mt-4 text-sm text-gray-600">
-        {lastFileName && (
-          <p>
-            <strong>Previously uploaded file was:</strong>{" "}
-            <span className="text-blue-700 font-medium">{lastFileName}</span>
-          </p>
-        )}
-      </div>
+      {lastFileName && (
+        <div className="mt-4 text-sm text-gray-600">
+          Previously uploaded file was: <strong>{lastFileName}</strong>
+        </div>
+      )}
 
-      <div className="mt-2 text-sm text-gray-500">
-        Resumes analyzed this session:{" "}
-        <span className="font-semibold">{analyzedCount}</span>
+      <div className="mt-6 text-sm text-gray-500">
+        Resumes analyzed this session: <span className="font-semibold">{analyzedCount}</span>
       </div>
 
       {parsedData && <ParsedResult data={parsedData} />}
